@@ -7,10 +7,11 @@ void Main()
 }
 
 bool HasAlternatingBits(int n)
-{	
+{
 	int pre = 1 & n;
 	int cur;
-	do {
+	do
+	{
 		n = n >> 1;
 		cur = (n & 1);
 		if ((pre ^ cur) != 1)
@@ -18,8 +19,8 @@ bool HasAlternatingBits(int n)
 			return false;
 		}
 		pre = cur;
-		
-	} while(n > 0);
-	
+
+	} while (n > 0);
+
 	return true;
 }

@@ -3,24 +3,28 @@
 // https://leetcode.com/problems/peak-index-in-a-mountain-array/description/
 void Main()
 {
-	PeakIndexInMountainArray(new int[] {12,13,19,41,55,69,70,71,96,72}).Dump();
+	PeakIndexInMountainArray(new int[] { 12, 13, 19, 41, 55, 69, 70, 71, 96, 72 }).Dump();
 }
 
 int PeakIndexInMountainArray(int[] A)
 {
-	return PeakIndexInMountainArrayHelper(A, 0, A.Length-1);
+	if(A == null)
+	{
+		return 0;	
+	}
+	
+	return PeakIndexInMountainArrayHelper(A, 0, A.Length - 1);
 }
 
-int PeakIndexInMountainArrayHelper(int[] A, int start, int end)
+int PeakIndexInMountainArrayHelper(int[] A, int lo, int hi)
 {
-	int peak = (end - start) / 2 + start;
+	int mid = (hi - lo) / 2 + lo;
 
-	if (A[peak - 1] < A[peak] && A[peak] > A[peak + 1])
-		return peak;
+	if (A[mid - 1] < A[mid] && A[mid] > A[mid + 1])
+		return mid;
 
-	if (A[peak - 1] < A[peak])
-		return PeakIndexInMountainArrayHelper(A, peak, end);
+	if (A[mid - 1] < A[mid])
+		return PeakIndexInMountainArrayHelper(A, mid, hi);
 
-
-	return PeakIndexInMountainArrayHelper(A, start, peak + 1);
+	return PeakIndexInMountainArrayHelper(A, lo, mid + 1);
 }

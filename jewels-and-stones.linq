@@ -8,22 +8,27 @@ void Main()
 
 int NumJewelsInStones(string J, string S)
 {
-	var jewels = new HashSet<char>();
-
-	foreach (var jem in J)
+	if (string.IsNullOrWhiteSpace(J) || string.IsNullOrWhiteSpace(S))
 	{
-		jewels.Add(jem);
+		return 0;
 	}
 
-	int jewelsCount = 0;
+	var hashSet = new HashSet<char>();
 
-	foreach (var s in S)
+	foreach (var c in J)
 	{
-		if (jewels.Any(x => x == s))
+		hashSet.Add(c);
+	}
+
+	int result = 0;
+
+	foreach (var c in S)
+	{
+		if (hashSet.Any(x => x == c))
 		{
-			jewelsCount++;
+			result++;
 		}
 	}
 
-	return jewelsCount;
+	return result;
 }

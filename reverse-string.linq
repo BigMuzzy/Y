@@ -9,7 +9,6 @@ void Main()
 
 public string ReverseString(string s)
 {
-
 	if (string.IsNullOrEmpty(s))
 	{
 		return string.Empty;

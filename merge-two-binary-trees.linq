@@ -3,20 +3,12 @@
 // https://leetcode.com/problems/merge-two-binary-trees/description/
 void Main()
 {
-	
-	
-}
-
-public class TreeNode {
-    public int val;
-    public TreeNode left;
-    public TreeNode right;
-    public TreeNode(int x) { val = x; }
 }
 
 TreeNode MergeTrees(TreeNode t1, TreeNode t2)
 {
-	if(t1 == null && t2 == null) {
+	if (t1 == null && t2 == null)
+	{
 		return null;
 	}
 
@@ -25,7 +17,8 @@ TreeNode MergeTrees(TreeNode t1, TreeNode t2)
 		return t1;
 	}
 
-	if (t1 == null && t2 != null) {
+	if (t1 == null && t2 != null)
+	{
 		return t2;
 	}
 
@@ -33,7 +26,14 @@ TreeNode MergeTrees(TreeNode t1, TreeNode t2)
 
 	result.left = MergeTrees(t1.left, t2.left);
 	result.right = MergeTrees(t1.right, t2.right);
-	
+
 	return result;
 }
 
+public class TreeNode
+{
+	public int val;
+	public TreeNode left;
+	public TreeNode right;
+	public TreeNode(int x) { val = x; }
+}

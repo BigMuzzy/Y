@@ -8,30 +8,35 @@ void Main()
 
 bool JudgeCircle(string moves)
 {
-	if((moves.Length % 2) > 0)
+	if (string.IsNullOrWhiteSpace(moves))
+	{
+		return true;
+	}
+
+	if ((moves.Length % 2) > 0)
 		return false;
 
-	int vTravel = 0;
-	int hTravel = 0;
+	int vertical = 0;
+	int horizontal = 0;
 
 	foreach (var move in moves)
 	{
 		switch (move)
 		{
 			case 'U':
-				vTravel++;
+				vertical++;
 				break;
 			case 'D':
-				vTravel--;
+				vertical--;
 				break;
 			case 'R':
-				hTravel++;
+				horizontal++;
 				break;
 			case 'L':
-				hTravel--;
+				horizontal--;
 				break;
 		}
 	}
 
-	return vTravel == 0 && hTravel == 0;
+	return vertical == 0 && horizontal == 0;
 }

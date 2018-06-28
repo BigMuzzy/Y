@@ -3,15 +3,6 @@
 // https://leetcode.com/problems/trim-a-binary-search-tree/description/
 void Main()
 {
-	
-	
-}
-
-public class TreeNode {
-    public int val;
-    public TreeNode left;
-    public TreeNode right;
-    public TreeNode(int x) { val = x; }
 }
 
 int MaxDepth(TreeNode root)
@@ -25,4 +16,12 @@ int MaxDepth(TreeNode root)
 	var right = MaxDepth(root.right);
 
 	return (left > right ? left : right) + 1;
+}
+
+public class TreeNode
+{
+	public int val;
+	public TreeNode left;
+	public TreeNode right;
+	public TreeNode(int x) { val = x; }
 }

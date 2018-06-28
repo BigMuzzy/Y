@@ -15,12 +15,17 @@ void Main()
 
 bool IsToeplitzMatrix(int[,] matrix)
 {
+	if(matrix == null)
+	{
+		return false;	
+	}
+	
 	bool result = true;
 	for (int i = matrix.GetLength(0) - 2; i >= 0; i--)
 	{
 		for (int j = 0; j < matrix.GetLength(1) - 1; j++)
 		{
-			result &= (matrix[i,j] == matrix[i+1,j+1]);
+			result &= (matrix[i, j] == matrix[i + 1, j + 1]);
 		}
 	}
 	return result;

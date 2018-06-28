@@ -3,25 +3,29 @@
 // https://leetcode.com/problems/unique-morse-code-words/description/
 void Main()
 {
-	UniqueMorseRepresentations(new string[]{"gin", "zen", "gig", "msg"}).Dump();
+	UniqueMorseRepresentations(new string[] { "gin", "zen", "gig", "msg" }).Dump();
 }
 
 int UniqueMorseRepresentations(string[] words)
 {
-	string [] alphabet = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
-	var vacabulary = new HashSet<string>();
-	
+	if (words == null)
+	{
+		return 0;
+	}
+
+	string[] alphabet = { ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.." };
+	var hashSet = new HashSet<string>();
+
 	foreach (var word in words)
 	{
-		var newWord = new StringBuilder();
-		foreach (char letter in word)
+		var temp = new StringBuilder();
+		foreach (var c in word)
 		{
-			newWord.Append(alphabet[letter - 'a']);
+			temp.Append(alphabet[c - 'a']);
 		}
-		
-		vacabulary.Add(newWord.ToString());
-	}
-	
-	return vacabulary.Count();
-}
 
+		hashSet.Add(temp.ToString());
+	}
+
+	return hashSet.Count();
+}

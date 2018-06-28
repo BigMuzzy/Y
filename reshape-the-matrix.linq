@@ -3,17 +3,22 @@
 // https://leetcode.com/problems/reshape-the-matrix/description/
 void Main()
 {
-	MatrixReshape(new int[,] { { 1 }, { 2}, { 3}, {4}}, 2, 2).Dump();
+	MatrixReshape(new int[,] { { 1 }, { 2 }, { 3 }, { 4 } }, 2, 2).Dump();
 }
 
 int[,] MatrixReshape(int[,] nums, int r, int c)
 {
+	if(nums == null)
+	{
+		return null;
+	}
+	
 	if (nums.Length != r * c)
 	{
 		return nums;
 	}
-	
-	int[,] result = new int[r,c];
+
+	int[,] result = new int[r, c];
 
 	int k = 0;
 	int l = 0;
@@ -22,7 +27,8 @@ int[,] MatrixReshape(int[,] nums, int r, int c)
 	{
 		for (int j = 0; j < nums.GetLength(1); j++, l++)
 		{
-			if (l >= c) {
+			if (l >= c)
+			{
 				l = 0;
 				k++;
 			}
@@ -30,6 +36,6 @@ int[,] MatrixReshape(int[,] nums, int r, int c)
 			result[k, l] = nums[i, j];
 		}
 	}
-	
+
 	return result;
 }

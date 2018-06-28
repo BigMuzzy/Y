@@ -8,11 +8,11 @@ void Main()
 
 string FrequencySort(string s)
 {
-	if(string.IsNullOrEmpty(s))
+	if (string.IsNullOrEmpty(s))
 	{
-		return s;	
+		return s;
 	}
-	
+
 	var dictionary = new Dictionary<char, int>();
 
 	foreach (char c in s)

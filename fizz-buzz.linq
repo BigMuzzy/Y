@@ -9,24 +9,28 @@ void Main()
 IList<string> FizzBuzz(int n)
 {
 	var result = new List<string>();
-	
-	for(int i = 1; i <= n; i++) {
-		var sb = new StringBuilder();
 
-		if((i % 3) == 0) {
-			sb.Append("Fizz");
+	for (int i = 1; i <= n; i++)
+	{
+		var temp = new StringBuilder();
+
+		if ((i % 3) == 0)
+		{
+			temp.Append("Fizz");
 		}
 
-		if((i % 5) == 0) {
-			sb.Append("Buzz");
+		if ((i % 5) == 0)
+		{
+			temp.Append("Buzz");
 		}
-		
-		if(sb.Length == 0) {
-			sb.Append(i);
+
+		if (temp.Length == 0)
+		{
+			temp.Append(i);
 		}
-	
-		result.Add(sb.ToString());
-	} 
-	
+
+		result.Add(temp.ToString());
+	}
+
 	return result;
 }
