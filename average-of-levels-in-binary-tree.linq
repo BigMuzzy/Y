@@ -3,6 +3,16 @@
 // https://leetcode.com/problems/average-of-levels-in-binary-tree/description/
 void Main()
 {
+	var root = new TreeNode(5);
+	root.left = new TreeNode(4);
+	root.left.left = new TreeNode(2);
+	root.left.left.left = new TreeNode(1);
+	root.left.left.right = new TreeNode(3);
+	root.right = new TreeNode(8);
+	root.right.left = new TreeNode(6);
+	root.right.right = new TreeNode(7);
+	
+	AverageOfLevels(root).Dump();
 }
 
 IList<double> AverageOfLevels(TreeNode root)
