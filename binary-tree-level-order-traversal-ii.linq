@@ -31,11 +31,11 @@ void LevelOrderBottomHelper(TreeNode root, List<IList<int>> result, int level)
 
 	if (result.Count <= level)
 	{
-		result.Add(new List<int>() { root.val });
+		result.Insert(result.Count - level, new List<int>() { root.val });
 	}
 	else
 	{
-		result[level].Add(root.val);
+		result[result.Count - level - 1].Add(root.val);
 	}
 
 	LevelOrderBottomHelper(root.left, result, level + 1);
