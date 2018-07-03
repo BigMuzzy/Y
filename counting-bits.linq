@@ -1,6 +1,6 @@
 <Query Kind="Program" />
 
-// https://leetcode.com/problems/counting-bits/description/
+// https://leetcode.com/pr ++oblems/counting-bits/description/
 void Main()
 {
 	CountBits(16).Dump();
@@ -11,17 +11,17 @@ int[] CountBits(int num) {
 	
 	result[0] = 0;
 	
-	for (int i = 1, n = 0, j = 0; i <= num; i++)
+	for (int i = 1, n = 0, j = 1; i <= num; i++)
 	{
-		if(i == (1 << n)) 
+		if(i == (1 << n))
 		{
-			n++;
-			j = 0;
 			result[i] = 1;
+			n++;
+			j = 1;
 		}
 		else
 		{
-			result[i] = result[(1 << (n - 2))+j];
+			result[i] = 1 + result[j];
 			j++;
 		}
 	}
