@@ -3,43 +3,70 @@
 // https://leetcode.com/problems/coin-change/description/
 void Main()
 {
-	CoinChange(new int[] { 470, 35, 120, 81, 121 }, 9825).Dump();
+	var coins = new int[]{474,83,404,3};
+//	Array.Sort(coins);
+	coinChange1(coins, 264, new int[264]).Dump();
+	CoinChange(coins, 264).Dump();
+	//{474,83,404,3}, 264
+	//{ 1, 2, 5 }, 11
 	//{470,35,120,81,121}, 9825
 	//{ 270, 373, 487, 5, 62 }, 8121
 }
 
 int CoinChange(int[] coins, int amount)
 {
-	Array.Sort(coins);
-	uint result = CoinChangeHelper(coins, coins.Length - 1, amount, 0);
-	return result == int.MaxValue ? -1 : (int)result;
+	var table = new int[amount];
+	return CoinChangeHelper(coins, amount, table);
 }
 
-uint CoinChangeHelper(int[] soretedCoins, int maxIndex, int amount, uint sum)
+int CoinChangeHelper(int[] coins, int amount, int[] table)
 {
 	if (amount == 0)
 	{
-		return sum;
+		return 0;
 	}
 
 	if (amount < 0)
 	{
-		return int.MaxValue;
+		return -1;
 	}
 
-	if (maxIndex < 0)
+	if ( table[amount-1] != 0)
 	{
-		return int.MaxValue;
+		return table[amount-1];
 	}
 
-	if (amount < soretedCoins[0])
+	int min = int.MaxValue;
+
+	for (int i = 0; i < coins.Length ; i++)
 	{
-		return int.MaxValue;
+		int tmp = CoinChangeHelper(coins, amount - coins[i], table);
+		
+		if(tmp >= 0 && (tmp + 1) < min)
+		{
+			min = (int)(tmp + 1);
+		}
 	}
+	
+	table[amount-1] = (min == int.MaxValue) ? -1 : min;
 
-	uint tmp1 = CoinChangeHelper(soretedCoins, maxIndex, amount - soretedCoins[maxIndex], sum + 1);
-
-	uint tmp2 = CoinChangeHelper(soretedCoins, maxIndex - 1, amount, sum);
-
-	return Math.Min(tmp1, tmp2);
+	return table[amount-1];
 }
+
+int coinChange1(int[] coins, int amount, int[] count)
+{
+	if (amount < 0) return -1;
+	if (amount == 0) return 0;
+	if (count[amount - 1] != 0) return count[amount - 1];
+	int min = int.MaxValue;
+	foreach (int coin in coins)
+	{
+		int res = coinChange1(coins, amount - coin, count);
+		if (res >= 0 && (res+1) < min)
+			min = 1 + res;
+	}
+	count[amount - 1] = (min == int.MaxValue) ? -1 : min;
+	return count[amount - 1];
+}
+
+
