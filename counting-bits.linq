@@ -1,6 +1,6 @@
 <Query Kind="Program" />
 
-// https://leetcode.com/pr ++oblems/counting-bits/description/
+// https://leetcode.com/problems/counting-bits/description/
 void Main()
 {
 	CountBits(16).Dump();
