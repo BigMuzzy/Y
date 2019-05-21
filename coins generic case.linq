@@ -3,61 +3,73 @@
 // coins generic case
 void Main()
 {
-//	var list = new List<int> { 4016, 984, 2134, 5, 346, 10000, 567, 4016, 984, 2134, 5, 346, 10000, 567 };
-	var list = new List<int> { 20, 3, 1, 8, 2, 20 };
-
 	List<int> intList = new List<int>();
 	Random r = new Random();
 
-	for (int i = 0; i < 50000; i++)
+	for (int i = 0; i < 500000; i++)
 	{
 		intList.Add(r.Next(0, 10000)); // populate random values.
 	}
 
-	//F(10, list, 2).Dump();
-	F(5000, intList, 2).Dump();
-	Results.Dump(true);
+	var result = GetPossibleCombinations(intList, 5000);
+	Console.WriteLine($"{result}");
 }
 
-int F(int sum, List<int> list, int k)
+int GetPossibleCombinations(List<int> intList, long totalValue)
 {
-	var m = new int[list.Max() + 1];
+	var Results = new Dictionary<string, List<int>>();
+	var currentSolution = new List<int>();
 
-	foreach (var i in list)
+	var maxElement = intList.Max();
+
+	var m = new int[maxElement + 1];
+
+	foreach (var i in intList)
 	{
 		m[i]++;
 	}
 
-	return FHelper(sum, m, 2);
+	GetPossibleCombinationsHelper(totalValue, m, 2, currentSolution, Results);
+
+	return Results.Count;
 }
 
-List<List<int>> Results = new List<List<int>>();
-Stack<int> CurrentSolution = new Stack<int>();
-
-int FHelper(int sum, int[] m, int k)
+void GetPossibleCombinationsHelper(long sum, int[] m, int k, List<int> chosen, Dictionary<string, List<int>> results)
 {
 	if (sum == 0 && k == 0)
-	{
-		Results.Add(CurrentSolution.ToList());
-		return 1;
-	}
-	else if (sum <= 0 || k <= 0)
-	{
-		return 0;
-	}
-
-	int result = 0;
-	for (int i = 1; i < m.Length; i++)
-	{
-		if (m[i] > 0)
+	{	
+		var key = ArrayToString(chosen);
+		if (results.Keys.Contains(key) == false)
 		{
-			m[i]--;
-			CurrentSolution.Push(i);
-			result += FHelper(sum - i, m, k - 1);
-			CurrentSolution.Pop();
-			m[i]++;
+			//Console.WriteLine(key);
+			results.Add(key, chosen);
 		}
+		return;
 	}
 
-	return result;
+	for (int i = 0; i < m.Length; i++)
+	{
+		if (sum - i < 0 || k <= 0)
+		{
+			return;
+		}
+
+		if (m[i] == 0)
+		{
+			continue;
+		}
+
+		m[i]--;
+		chosen.Add(i);
+		GetPossibleCombinationsHelper(sum - i, m, k - 1, chosen, results);
+		chosen.RemoveAt(chosen.Count - 1);
+		m[i]++;
+	}
+}
+
+string ArrayToString(List<int> list)
+{
+	int[] a = list.ToArray();
+	Array.Sort(a);
+	return string.Join(";", a);
 }
