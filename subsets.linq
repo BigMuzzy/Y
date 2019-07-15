@@ -3,29 +3,40 @@
 // https://leetcode.com/problems/subsets/description/
 void Main()
 {
+	Subsets(new int[] { 1, 2, 3 }).Dump();
 }
 
 IList<IList<int>> Subsets(int[] nums)
 {
 	var result = new List<IList<int>>();
-	
-	SubsetsHelper(nums, result, 0);
-	
+	var chosen = new List<int>();
+
+	SubsetsHelper(nums.ToList(), result, chosen);
+
 	return result;
 }
 
-void SubsetsHelper(int[] nums, IList<IList<int>> list, int i)
+void SubsetsHelper(IList<int> nums, IList<IList<int>> result, IList<int> chosen)
 {
 	//base case
-	if(nums.Length <= 0)
+	if (nums.Count <= 0)
 	{
-		return;
+		result.Add(chosen.ToList());
 	}
-	
-	//choos
-	
-	
-	//explore
-	
-	//unchoose
+	else
+	{
+		int first = nums[0];
+		nums.RemoveAt(0);
+
+		//choos first in
+		chosen.Add(first);
+		SubsetsHelper(nums, result, chosen);
+
+		//choos first out
+		chosen.RemoveAt(chosen.Count - 1);
+		SubsetsHelper(nums, result, chosen);
+
+		//unchoose
+		nums.Insert(0, first);
+	}
 }

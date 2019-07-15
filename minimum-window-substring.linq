@@ -4,78 +4,73 @@
 
 void Main()
 {
-	string S = "ADOBECODEBANC", T = "q";
-
-	string S1 = "AAABCD", T1 = "ABC";
+	string S = "ADOBECODEBANC", T = "ABC";
+	string S1 = "A", T1 = "A";
 
 	MinWindow(S, T).Dump();
 }
 
 string MinWindow(string s, string t)
 {
-	Dictionary<char, int> table = FillTable(t);
-
-	int l = -1;
-	int r = 0;
-	int len = int.MaxValue;
-	int numberOfChars2Find = table.Count;
-	char c;
-
-	int i = -1;
-	int j = -1;
-	while (i < s.Length)
+	var table = new Dictionary<char, int>();
+	
+	foreach (char c1 in t)
 	{
-		while (numberOfChars2Find > 0 && ++i < s.Length)
+		if(table.ContainsKey(c1))
 		{
-			c = s[i];
-			if (table.ContainsKey(c))
-			{
-				table[c]--;
-				if (table[c] == 0)
-				{
-					numberOfChars2Find--;
-				}
-			}
-		}
-
-		while (numberOfChars2Find == 0 && ++j < i)
-		{
-			c = s[j];
-			if (table.ContainsKey(c))
-			{
-				table[c]++;
-				if (table[c] > 0)
-				{
-					numberOfChars2Find++;
-				}
-			}
-		}
-
-		if (i - j + 1 < len)
-		{
-			l = j;
-			r = i;
-			len = r - l + 1;
-		}
-	}
-	return l >= 0 ? s.Substring(l, len) : string.Empty;
-}
-
-Dictionary<char, int> FillTable(string t)
-{
-	var result = new Dictionary<char, int>();
-
-	foreach (var c in t)
-	{
-		if (result.ContainsKey(c))
-		{
-			result[c]++;
+			table[c1]++;
 		}
 		else
 		{
-			result[c] = 1;
+			table[c1] = 1;	
 		}
 	}
+	
+	char c;
+	int l = 0;
+	int r = 0;
+	int len = int.MaxValue;
+	int need2FindCharsCnt = table.Count;
+	string result = string.Empty;
 
+	while(r < s.Length)
+	{
+		//find all required chars
+		c = s[r];
+		if (table.ContainsKey(c))
+		{
+			table[c]--;
+			if(table[c] == 0)
+			{
+				need2FindCharsCnt--;
+			}
+		}
+		
+		r++;
+
+		while (need2FindCharsCnt == 0)
+		{
+			//check if better solution found
+			if(r - l < len)
+			{
+				len = r - l;
+				result = s.Substring(l, len);
+			}
+
+			//try to improve
+			c = s[l];
+			if(table.ContainsKey(c))
+			{
+				table[c]++;
+				if(table[c] > 0)
+				{
+					need2FindCharsCnt++;
+				}
+			}
+			
+			l++;
+		}
+	}
+	
 	return result;
 }
